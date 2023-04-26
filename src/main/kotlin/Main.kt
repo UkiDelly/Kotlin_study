@@ -1,19 +1,26 @@
 fun main() {
 
-    // (명시적) 형변환
-    val a: Int = 54321
-    var b: Long = a.toLong()
+     // 타입 추론
+    val a = "Hello World!"
+    println(a)
 
-    // 배열 (선언과 동시에 전체 크기가 정해져 있음)
-    val intArr = arrayOf(1, 2, 3, 4, 5)
-
-    // 비어 있는 (null로 채워진) 크기가 정해진 배열
-    val nullArr = arrayOfNulls<Int>(5)
-
-
-    // 값 사용
-    println(intArr[2])
-    println(nullArr[2])
-
-
+    // 함수 사용
+    println(add(1, 2, 3))
 }
+
+
+// 함수 생성
+
+/**
+ *  @param a Int
+ *  @param b Int
+ *  @param c Int
+ *  @return Int
+ */
+fun add(a: Int, b: Int, c:Int): Int {
+
+    return a + b + c
+}
+
+// 단일 표현식 함수, 반환형도 추론이 가능해서 생략 가능
+fun add2(a: Int, b: Int, c:Int) = a + b + c
