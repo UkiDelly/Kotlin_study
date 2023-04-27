@@ -1,21 +1,18 @@
 fun main() {
+	// 	List 타입
 	
-	// 반복문
-	
-	// List 생성 (Array 아님)
+	// 변경이 안되는 List (읽기만 가능)
 	val items = listOf(1, 2, 3, 4, 5)
 	
-	// for in 반복문
-	for (item in items) {
-		println(item)
-	}
+	//! 에러. 읽기만 가능
+	items.add(3)
 	
-	// 	forEach 반복문
-	items.forEach { item ->
-		println(item)
-	}
+	// 	변경이 가능한 List (읽기/쓰기 가능)
+	val newItems: MutableList<Int> = mutableListOf(1, 2, 3, 4, 5)
 	
-	// 	일반적인 for문
-	for (i in 0..items.size)
-		println(i)
+	// 에러 발생 X 읽기,쓰기 가능
+	newItems.add(6)
+	newItems.remove(3)
+	
+	
 }
