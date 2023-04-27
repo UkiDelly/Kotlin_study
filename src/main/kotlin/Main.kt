@@ -1,50 +1,52 @@
 fun main() {
 	
-	val john = Person("John", 32)
+	val dog = Dog()
+	val cat = Cat()
 	
-	// john.name = "David" // 에러, name은 val(상수) 타입이기 때문
-	println(john.name)
-	
-	john.age = 20 // 에러 X, age는 var(변수) 타입이기 때문
-	println(john.age)
-	
-	val david = Person(name = "David", age = 12)
-	
-	val john2 = Person("John", 20)
-	println(john)
-	println(john2)
-	println(john == john2) // false
-	
-	
+	// 	타입 체크는 is를 사용함
+	//  as로 타입 캐스팅도 가능
+	if (dog is Animal) {
+		println("dog is Animal")
+	}
 }
 
 
-// class
-// 클래스 이름이랑 생성자를 동시에 만들 수 있다.
-// class 앞에 data 키워드를 붙이면 equals, hashCode, toString, copy 등의 메소드를 자동으로 생성해준다.
-data class Person(
-	val name: String,
-	var age: Int,
-	// private 키워드를 사용하면 해당 클래스 내부에서만 사용할 수 있다.
-	private val gender: String = "male"
-) {
-	// init 키워드를 사용하면 클래스가 생성될 때 실행할 코드를 작성할 수 있다.
-	init {
-		println("init")
-	}
-	
-	
-	// 클래스내에 변수 선언
-	// 기본적으로 public이다.
-	// 그래서 class 외부에서 접근하여 값을 변경할수 있다
-	// private 키워드를 사용하면 해당 클래스 내부에서만 값을 변경할수 있고, 외부에서는 읽기만 가능하다.
-	var hobby = "축구"
-		// setter를 private으로 설정하면 외부에서 값을 변경할 수 없다.
-		private set
-		// getter 설정, field는 hobby 변수를 의미한다.
-		get() = "취미 : $field"
-	
-	fun some() {
-		hobby = "농구"
+// 추상 클래스
+abstract class Animal {
+	// open 키워드를 사용해서 override를 허용한다.
+	open fun move() {
+		println("이동")
 	}
 }
+
+
+// 상속을 할때는 클래스이름() <- 소괄호를 넣어야한다.
+class Dog : Animal() {
+	override fun move() {
+		println("터벅")
+	}
+}
+
+// 인터페이스
+interface Drawable {
+	fun draw()
+}
+
+
+// 인터페이스를 상속받을때는 , 를 사용해서 여러개를 상속받을 수 있다.
+class Cat : Animal(), Drawable {
+	override fun move() {
+		println("살금")
+	}
+	
+	override fun draw() {
+		println("뭔갈 그리다")
+	}
+}
+
+
+// 일반 class는 상속이 불가능하다
+// 하지만 open 키워드를 사용하면 상속이 가능하다.
+open class Person
+
+class SuperMan : Person()
