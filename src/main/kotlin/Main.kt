@@ -1,26 +1,23 @@
+import java.util.Scanner
+
 fun main() {
-
-     // 타입 추론
-    val a = "Hello World!"
-    println(a)
-
-    // 함수 사용
-    println(add(1, 2, 3))
+    
+    // 코틀린에서 입력을 받는 방법
+    val scanner = Scanner(System.`in`)
+    println("정수 받고 출력")
+    println(scanner.nextInt() )
+    
+    
+    println("실수 받고 출력" )
+    println( scanner.nextDouble() )
+    
+    println("문자열 받고 출력 " )
+    println( scanner.next() )
+    
+    println("문자열 받고 출력" )
+    println( scanner.nextLine() )
+    
+    println("캐릭터(Char) 받고 출력" )
+    println( scanner.next().single() )
+    
 }
-
-
-// 함수 생성
-
-/**
- *  @param a Int
- *  @param b Int
- *  @param c Int
- *  @return Int
- */
-fun add(a: Int, b: Int, c:Int): Int {
-
-    return a + b + c
-}
-
-// 단일 표현식 함수, 반환형도 추론이 가능해서 생략 가능
-fun add2(a: Int, b: Int, c:Int) = a + b + c
