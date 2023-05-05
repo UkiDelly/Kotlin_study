@@ -1,62 +1,46 @@
 fun main() {
-	// 	class는 객체를 생성하기 위한 틀, 즉 사용하기 위해서는 생성자를 통해 객체를 생성해야 한다.
-	// 	하지만 그럴 필요 없이 단 하나의 객채만이 필요할때는 Object를 사용하면 된다.
-	// Singleton 패턴을 언어 차원에서 지원해준다.
-	println(Counter.count)
-	
-	Counter.countUp()
-	Counter.countUp()
-	
-	println(Counter.count)
-	
-	Counter.clear()
-	println(Counter.count)
-	
-	// 	class 안에 object를 추가하는 것이 가능히다 이를 companion object라고 한다.
-	//  이런 경우 object는 class의 static 멤버로 동작한다
-	
-	val jjajang = FoodPoll("짜장")
-	val jjambbong = FoodPoll("짬뽕")
-	
-	
-	jjajang.voute()
-	jjajang.voute()
-	
-	jjambbong.voute()
-	jjambbong.voute()
-	
-	println("${jjajang.name} : ${jjajang.count}")
-	println("${jjambbong.name} : ${jjambbong.count}")
-	println("총계 : ${FoodPoll.total}")
-	
+	EventPrinter().start()
 }
 
 
-object Counter {
-	var count = 0
+// Observer
+// 이벤트를 수신해서 출력하는 class
+// interface를 상속
+class EventPrinter : EventListener {
 	
-	fun countUp() {
-		count ++
+	// 오버라이딩
+	override fun onEvent(count: Int) {
+		print("${count}-")
 	}
 	
-	fun clear() {
-		count = 0
-	}
-}
-
-
-// companion object 예제
-class FoodPoll(val name: String) {
-	companion object {
-		var total = 0
+	fun start() {
 		
+		// 이벤트를 발생시킬 class, this로 listener를 넘겨준다 넘겨준다.
+		// this는 EventPrinter를 의미하지만 Counter에서는 EventListener를 받는다고 했기 때문에
+		// EventLIstener의 구현부분인, 오버라이딩한 onEvent를 넘겨주게 된다.
+		val counter = Counter(this)
+		counter.count()
 	}
-	
-	var count = 0
-	
-	fun voute() {
-		total ++
-		count ++
-	}
-	
 }
+
+// 이벤트를 발생시킬 class
+class Counter(val listener: EventListener) {
+	fun count() {
+		
+		// 1에서 100까지
+		for (i in 1..100) {
+			
+			// 5의 배수일 때만 이벤트를 발생시킨다.
+			if (i % 5 == 0) {
+				listener.onEvent(i)
+			}
+		}
+	}
+}
+
+// 두개를 연결시킬 interface
+interface EventListener {
+	fun onEvent(count: Int)
+}
+
+
