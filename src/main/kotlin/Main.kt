@@ -1,40 +1,31 @@
 fun main() {
 	
-	UsingGeneric(A()).doShouting()
+	// 	 List
+	val a = listOf("사과", "배", "딸기", "포도")
 	
-	doShouting(B())
+	println(a[0])
 	
-}
-
-open class A {
-	open fun shout() {
-		println("A 가 소리칩니다")
-	}
-}
-
-class B : A() {
-	override fun shout() {
-		println("B 가 소리칩니다")
-	}
-}
-
-class C : A() {
-	override fun shout() {
-		println("C 가 소리칩니다")
-	}
-}
-
-
-/**
- *
- * [T:A] 는 T는 A와 A의 자식 클래스만 가능하다는 뜻
- */
-class UsingGeneric<T : A>(val t: T) {
-	fun doShouting() {
-		t.shout()
-	}
-}
-
-fun <T : A> doShouting(t: T) {
-	t.shout()
+	
+	val b = mutableListOf(6, 3, 1)
+	
+	println(b)
+	
+	b.add(4)
+	
+	println(b)
+	
+	b.add(2, 8)
+	
+	println(b)
+	
+	b.removeAt(1)
+	
+	
+	println(b)
+	
+	b.shuffle()
+	println(b)
+	
+	b.sort()
+	println(b)
 }
