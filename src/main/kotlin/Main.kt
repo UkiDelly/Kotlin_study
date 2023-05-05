@@ -1,58 +1,24 @@
 fun main() {
-	// 문자열 다루기
-	val test1 = "Test.Kotlin.String"
+	// 	null 처리
+	/**
+	 *  [?.] : null safe operator, null인지 확인하고 null이면 뒤에 구문을 실행하지 않음
+	 *  [?:] : elvis operator, null이 아니라면 그대로 사용하지만, null이면 오른쪽으로 대체 ?? 이랑 같은 문법인듯
+	 *  [!!] : non-null assertion operator, null이 아님을 단정하고 null이면 NPE 발생
+	 */
 	
-	println(test1.length)
-	println(test1.lowercase())
-	println(test1.uppercase())
+	val a: String = "Kotlin Exam"
 	
-	// split
-	var test2 = test1.split(".")
-	
-	// join
-	println(test2.joinToString())
-	println(test2.joinToString("-"))
-	
-	// 	 substring
-	println(test1.substring(5..10))
-	
-	
-	//
-	val nullString: String? = null
-	val emptyString = ""
-	val blankString = " "
-	val normalString = "a"
-	
-	//  null of empty
-	println(nullString.isNullOrEmpty())
-	println(emptyString.isNullOrEmpty())
-	println(blankString.isNullOrEmpty())
-	println(normalString.isNullOrEmpty())
-	
-	println()
-	
-	// null or blank
-	println(nullString.isNullOrBlank())
-	println(emptyString.isNullOrBlank())
-	println(blankString.isNullOrBlank())
-	println(normalString.isNullOrBlank())
-	
-	println()
-	
-	// 특정 문자열로 시작하거나 끝나는지 확인
-	val test3 = "kotlin.kt"
-	val test4 = "java.java"
-	
-	println(test3.startsWith("java"))
-	println(test4.startsWith("java"))
-	
-	println(test3.endsWith(".kt"))
-	println(test4.endsWith(".kt"))
-	
-	println(test3.contains("lin"))
-	println(test4.contains("lin"))
-	
-	println()
+	// // null safe operator
+	// println(a?.uppercase())
+	// // elvis operator
+	// println(a ?: "default".uppercase())
+	// // non-null assertion operator
+	// println(a !!.uppercase())
 	
 	
+	// 	scope 함수 사용
+	a.run {
+		println(uppercase())
+		println(lowercase())
+	}
 }
