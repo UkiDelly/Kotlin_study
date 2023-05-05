@@ -1,24 +1,27 @@
 fun main() {
-	// 	null 처리
-	/**
-	 *  [?.] : null safe operator, null인지 확인하고 null이면 뒤에 구문을 실행하지 않음
-	 *  [?:] : elvis operator, null이 아니라면 그대로 사용하지만, null이면 오른쪽으로 대체 ?? 이랑 같은 문법인듯
-	 *  [!!] : non-null assertion operator, null이 아님을 단정하고 null이면 NPE 발생
-	 */
+	val a = Product("콜라", 1000)
+	val b = Product("콜라", 1000)
 	
-	val a: String = "Kotlin Exam"
+	var c = a
 	
-	// // null safe operator
-	// println(a?.uppercase())
-	// // elvis operator
-	// println(a ?: "default".uppercase())
-	// // non-null assertion operator
-	// println(a !!.uppercase())
+	var d = Product("사이다", 1000)
 	
+	println(a == b)
+	println(a === b)
+	println(a == c)
+	println(a === c)
+	println(a == d)
+	println(a === d)
 	
-	// 	scope 함수 사용
-	a.run {
-		println(uppercase())
-		println(lowercase())
+}
+
+class Product(val name: String, val price: Int) {
+	override fun equals(other: Any?): Boolean {
+		// return super.equals(other)
+		return if (other is Product) {
+			other.name == name && other.price == price
+		} else {
+			false
+		}
 	}
 }
