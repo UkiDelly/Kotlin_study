@@ -1,65 +1,40 @@
 fun main() {
-	EventPrinter().start()
+	//  as , is
+	val a = Drink()
+	a.drink()
+	
+	// b는 Cola 타입이지만 Drink 타입으로 선언되었기 때문에
+	// Cola의 washDishes() 메서드를 사용할 수 없다.
+	val b: Drink = Cola()
+	b.drink()
+	
+	
+	if (b is Cola) {
+		b.washDishes()
+	}
+	
+	val c = b as Cola
+	c.washDishes()
+	b.washDishes()
+	
 }
 
-
-// Observer
-// 이벤트를 수신해서 출력하는 class
-// interface를 상속
-// class EventPrinter : EventListener {
-//
-// 	// 오버라이딩
-// 	override fun onEvent(count: Int) {
-// 		print("${count}-")
-// 	}
-//
-// 	fun start() {
-//
-// 		// 이벤트를 발생시킬 class, this로 listener를 넘겨준다 넘겨준다.
-// 		// this는 EventPrinter를 의미하지만 Counter에서는 EventListener를 받는다고 했기 때문에
-// 		// EventLIstener의 구현부분인, 오버라이딩한 onEvent를 넘겨주게 된다.
-// 		val counter = Counter(this)
-// 		counter.count()
-// 	}
-// }
-
-
-// 익명 객체
-class EventPrinter {
-	fun start() {
-		
-		// object 키워드를 통해 익명 객체를 생성, EventListener의 타입을 가진다
-		// object 생성이랑 같다. 단지 이름이 없는 것 뿐
-		Counter(object : EventListener {
-			override fun onEvent(count: Int) {
-				print("${count}-")
-			}
-			
-			// 	apply(초기화 후 작업 실행) 적용 해봄
-		}).apply { count() }
-		
-		
+open class Drink {
+	val name = "음료"
+	
+	open fun drink() {
+		println("${name}를 마십니다.")
 	}
 }
 
-// 이벤트를 발생시킬 class
-class Counter(val listener: EventListener) {
-	fun count() {
-		
-		// 1에서 100까지
-		for (i in 1..100) {
-			
-			// 5의 배수일 때만 이벤트를 발생시킨다.
-			if (i % 5 == 0) {
-				listener.onEvent(i)
-			}
-		}
+class Cola : Drink() {
+	val type = "콜라"
+	
+	override fun drink() {
+		println("${name}중에 ${type}를 마십니다.")
+	}
+	
+	fun washDishes() {
+		println("${type}로 설거지를 합니다.")
 	}
 }
-
-// 두개를 연결시킬 interface
-interface EventListener {
-	fun onEvent(count: Int)
-}
-
-
