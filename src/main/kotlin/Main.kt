@@ -1,74 +1,59 @@
 fun main() {
 	
-	// 일반적인 class와 data class의 차이점 확인
-	val a = General("보영", 212)
+	/**
+	 *  [Set] - 정렬되어 있지 않으며 중복을 허락하지 않는 Collection
+	 *        - index으로 값을 참조할 수 없다.
+	 *        - set.contains(element) : element가 set에 포함되어 있는지 확인
+	 *        - setOf() : 불변형 Set을 생성
+	 *        - mutableSetOf() : 가변형 Set을 생성
+	 */
+	val set = mutableSetOf<String>("귤", "바나나", "키워")
 	
-	println(a == General("보영", 212)) // false
-	println(a.hashCode())
-	println(a)
+	for (item in set) {
+		println(item)
+	}
+	
+	set.add("자몽")
+	println(set)
+	
+	set.remove("바나나")
+	println(set)
+	
+	println(set.contains("귤"))
 	
 	
-	val b = Data("루다", 306)
+	/**
+	 *  [Map] - Key와 Value의 쌍으로 이루어진 Collection
+	 *        - map[key] = value : key에 value를 할당
+	 *        - mapOf() : 불변형 Map을 생성
+	 *        - mutableMapOf() : 가변형 Map을 생성
+	 *        - put(key, value) : key에 value를 할당
+	 *        - remove(key) : key에 해당하는 값을 제거
+	 *        - Dart와는 달리 : 가 아닌 to를 사용한다.
+	 */
 	
-	println(b == Data("루다", 306)) // true
-	println(b.hashCode())
-	println(b)
-	
-	
-	println(b.copy())
-	println(b.copy("아린"))
-	println(b.copy(id = 618))
-	
-	
-	// 	componentX() 함수의 사용
-	val list = listOf(
-		Data("보영", 212),
-		Data("루다", 306),
-		Data("아린", 618)
+	val map = mutableMapOf<String, String>(
+		"레드벨벳" to "음파음파",
+		"트와이스" to "FANCY",
+		"ITZY" to "ICY"
 	)
 	
 	
-	// 이렇게 for문을 설정하면 내부적으로 componentX() 함수를 사용한다.
-	for ((a, b) in list) {
-		println("${a}, ${b}")
+	for (entry in map) {
+		println("${entry.key} : ${entry.value}")
 	}
 	
-	// 	enum 활용
-	var state = State.SING
-	println(state)
+	
+	// 추가
+	map.put("오마이걸", "번지")
+	println(map)
+	
+	// 제거
+	map.remove("ITZY")
+	println(map)
 	
 	
-	state = State.SLEEP
-	println(state.isSleeping())
+	// 값 참조
+	println(map["레드벨벳"])
 	
-	state = State.EAT
-	println(state.message)
-	
-}
-
-
-// Data class
-// 데이터를 다룰때 쓰기 좋음
-// toString(), equals(), hashCode(), copy(), componentX() 등을 자동으로 생성해줌
-// componentX() 함수의 경우, 속성을 순서대로 반환해주는 함수이다.
-/**
- *  예) Data("A",7) 이라는 객체가 있을 때
- *  Data.component1() 은 "A" 를 반환
- *  Data.component2() 는 7 을 반환
- */
-class General(val name: String, val id: Int)
-
-data class Data(val name: String, val id: Int)
-
-// Enum
-// 열거형 클래스
-// Dart의 Enum이랑 비슷함
-
-enum class State(val message: String) {
-	SING("노래를 부릅니다."),
-	EAT("밥을 먹습니다."),
-	SLEEP("잠을 잡니다.");
-	
-	
-	fun isSleeping() = this == SLEEP
 }
